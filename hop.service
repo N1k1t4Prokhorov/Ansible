@@ -1,0 +1,10 @@
+[Unit]
+Description = My test service
+Wants=hop.timer
+[Service]
+RemainAfterExit=true
+ExecStart=/home/nikita/environments/hop.py
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target

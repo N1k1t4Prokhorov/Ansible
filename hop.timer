@@ -1,0 +1,11 @@
+[Unit]
+Description=timer
+Requires=hop.service
+
+[Timer]
+AccuracySec=5min
+Unit=hop.service
+OnBootSec=5min
+
+[Install]
+WantedBy=timers.target
