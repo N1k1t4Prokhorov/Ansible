@@ -1,0 +1,65 @@
+---
+- name: install Flask
+  hosts: all
+  become: yes
+
+
+  vars:
+    source_file2: /opt/environments/hop.py
+    destin_file2: /opt/environments/hop.py
+    source_file4: /opt/environments/templates/code.html
+    destin_file4: /opt/environments/templates/code.html
+  tasks:
+  - name: Creates directory
+    ansible.builtin.file:
+      path: /opt/environments/static/css
+      state: directory
+      recurse: yes
+      mode: "777"
+  - name: create
+    ansible.builtin.file:
+      path: /opt/environments/templates
+      state: directory
+      mode: "777"
+
+  - name: install pip
+    apt: name=python3-pip state=latest
+  - name: install flask
+    pip: name=flask state=latest
+  - name:
+    copy:
+      src: "{{ source_file2 }}"
+      dest: "{{ destin_file2 }}"
+      mode: 777
+  - name:
+    copy:
+      src: "{{ source_file4 }}"
+      dest: "{{ destin_file4 }}"
+      mode: 777
+  - name:
+    copy:
+      src: "{{ item['path_unit'] + item['unit'] }}"
+      dest: "{{ item['path_unit'] + item['unit'] }}"
+      mode: 777
+    loop:
+      - { path_unit: "/etc/systemd/system/", unit: "hop.service" }
+      - { path_unit: "/etc/systemd/system/", unit: "hop.timer" }
+  - name:
+    copy:
+      src: "/opt/environments/static/css/{{ item }}"
+      dest: "/opt/environments/static/css/"
+      mode: 777
+    loop:
+     - "img1.jpeg"
+     - "style.css"
+#    notify: restart service
+  - name: Start service
+    service: name=hop state=started enabled=yes
+  - name:
+    service: name=hop.timer state=started enabled=yes
+
+
+#   handlers:
+#   - name: restart service
+#     service: name=hop.service state=restarted
+#     service: name=hop.timer state=restarted
