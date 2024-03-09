@@ -3,7 +3,7 @@ Description = My test service
 Wants=hop.timer
 [Service]
 RemainAfterExit=true
-ExecStart=/home/nikita/environments/hop.py
+ExecStart=/opt/environments/hop.py
 Type=oneshot
 
 [Install]
