@@ -18,9 +18,8 @@ uninstall:
 	rm -rf /opt/environments
 	rm -f /etc/systemd/system/hop.service /etc/systemd/system/hop.timer
 test:
-	ls /opt/environments/hop.py /opt/environments/templates/code.html /opt/environments/static/css/img1>
+	ls /opt/environments/hop.py /opt/environments/templates/code.html /opt/environments/static/css/img1.jpeg /opt/environments/static/css/style.css /etc/systemd/system/hop.service /etc/systemd/system/hop.timer
 dokerbuild:
 
 
 dokerstart:
-123
